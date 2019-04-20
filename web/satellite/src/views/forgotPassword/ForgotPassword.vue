@@ -10,6 +10,7 @@
     import { forgotPasswordRequest } from '@/api/users';
     import { NOTIFICATION_ACTIONS } from '@/utils/constants/actionNames';
     import ROUTES from '@/utils/constants/routerConstants';
+    import EVENTS from '@/utils/constants/UIEventNames';
 
     @Component(
         {
@@ -39,11 +40,16 @@
                     }
                 },
                 onBackToLoginClick: function() {
+                    this.analytics.track(EVENTS.CLICKED_BACK_TO_LOGIN);
                     this.$router.push(ROUTES.LOGIN.path);
                 },
                 onLogoClick: function () {
-                   location.reload()
+                    this.analytics.track(EVENTS.CLICKED_LOGO);
+                    location.reload();
                 }
+            },
+            mounted(): void {
+                this.analytics.page('ForgotPassword');
             }
         })
 

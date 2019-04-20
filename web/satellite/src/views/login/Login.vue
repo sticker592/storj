@@ -63,6 +63,9 @@ import { AppState } from '@/utils/constants/appStateEnum';
             this.$router.push(ROUTES.REGISTER.path);
         },
     },
+    mounted(): void {
+        this.analytics.page('Login');
+    },
     components: {
         HeaderlessInput,
         Button

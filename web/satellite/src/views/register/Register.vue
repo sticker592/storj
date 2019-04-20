@@ -10,6 +10,7 @@ import { EMPTY_STATE_IMAGES } from '../../utils/constants/emptyStatesImages';
 import RegistrationSuccessPopup from '../../components/common/RegistrationSuccessPopup.vue';
 import { validateEmail, validatePassword } from '../../utils/validation';
 import ROUTES from '../../utils/constants/routerConstants';
+import EVENTS from '../../utils/constants/UIEventNames';
 import { LOADING_CLASSES } from '../../utils/constants/classConstants';
 import { APP_STATE_ACTIONS, NOTIFICATION_ACTIONS } from '../../utils/constants/actionNames';
 import { createUserRequest } from '../../api/users';
@@ -109,9 +110,11 @@ import { createUserRequest } from '../../api/users';
                 self.createUser();
             },
             onLogoClick: function (): void {
+                this.analytics.track(EVENTS.CLICKED_LOGO);
                 location.reload();
             },
             onLoginClick: function (): void {
+                this.analytics.track(EVENTS.CLICKED_LOGIN);
                 this.$router.push(ROUTES.LOGIN.path);
             },
         },
@@ -129,6 +132,8 @@ import { createUserRequest } from '../../api/users';
             if (this.$route.query.token) {
                 this.$data.secret = this.$route.query.token.toString();
             }
+ 
+            this.analytics.page(ROUTES.REGISTER.name);
         }
     })
 
