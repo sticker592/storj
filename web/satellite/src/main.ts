@@ -6,7 +6,18 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
+declare module 'vue/types/vue' {
+    interface Vue {
+        analytics: {
+            page(name: string): void,
+            track(event: string): void,
+            identity(): void,
+        };
+    }
+}
+
 Vue.config.productionTip = false;
+Vue.prototype.analytics = (<any>window).analytics;
 
 new Vue({
     router,
